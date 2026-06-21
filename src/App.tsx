@@ -412,14 +412,36 @@ Answer the user's question: "${userText}" in a helpful, friendly, plain English 
                     value={newWorkspaceName}
                     onChange={(e) => setNewWorkspaceName(e.target.value)}
                     onKeyDown={(e) => e.key === 'Enter' && handleCreateWorkspace()}
-                    className="bg-white border border-slate-200 text-[10px] rounded-lg px-2.5 py-1 w-24 focus:outline-none focus:border-brand-500 text-slate-800"
+                    className="bg-white border border-slate-200 text-[10px] rounded-lg px-2.5 py-1 w-20 focus:outline-none focus:border-brand-500 text-slate-800"
                   />
                   <button 
                     onClick={handleCreateWorkspace}
-                    className="bg-brand-600 hover:bg-brand-700 text-white text-[10px] font-semibold px-2.5 py-1 rounded-lg flex items-center space-x-1"
+                    className="bg-brand-600 hover:bg-brand-700 text-white text-[10px] font-semibold px-2 py-1 rounded-lg flex items-center space-x-1"
+                    title="Create manual workspace"
                   >
                     <Plus className="w-3 h-3" />
-                    <span>New</span>
+                  </button>
+                  <button 
+                    onClick={async () => {
+                      setIsChatLoading(true);
+                      if (typeof chrome !== 'undefined' && chrome.runtime) {
+                        chrome.runtime.sendMessage({ type: 'TRIGGER_GROUPING' }, (response) => {
+                          setIsChatLoading(false);
+                          if (chrome.runtime.lastError) {
+                            alert(`Error triggering grouping: ${chrome.runtime.lastError.message}`);
+                          } else if (response && response.success) {
+                            alert("AI Workspace categorization complete!");
+                          } else {
+                            alert("Categorization completed with empty results.");
+                          }
+                        });
+                      }
+                    }}
+                    disabled={isChatLoading}
+                    className="bg-violet-600 hover:bg-violet-700 text-white text-[10px] font-semibold px-2 py-1 rounded-lg flex items-center space-x-1"
+                    title="Trigger AI Workspace Categorization"
+                  >
+                    <Sparkles className="w-3 h-3" />
                   </button>
                 </div>
               </div>
