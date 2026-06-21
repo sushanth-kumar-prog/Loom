@@ -5,9 +5,9 @@
 <img src="./assets/divider.svg" width="100%" height="4"/>
 
 <p align="center">
-  <img src="https://img.shields.io/github/stars/YOUR_USERNAME/ContextTab?color=00F5D4&style=for-the-badge&logo=star&logoColor=white&labelColor=0d1117" alt="stars"/>
-  <img src="https://img.shields.io/github/forks/YOUR_USERNAME/ContextTab?color=9B5DE5&style=for-the-badge&logo=git&logoColor=white&labelColor=0d1117" alt="forks"/>
-  <img src="https://img.shields.io/github/last-commit/YOUR_USERNAME/ContextTab?color=F15BB5&style=for-the-badge&logo=github&logoColor=white&labelColor=0d1117" alt="last commit"/>
+  <img src="https://img.shields.io/github/stars/sushanth-kumar-prog/Loom?color=00F5D4&style=for-the-badge&logo=star&logoColor=white&labelColor=0d1117" alt="stars"/>
+  <img src="https://img.shields.io/github/forks/sushanth-kumar-prog/Loom?color=9B5DE5&style=for-the-badge&logo=git&logoColor=white&labelColor=0d1117" alt="forks"/>
+  <img src="https://img.shields.io/github/last-commit/sushanth-kumar-prog/Loom?color=F15BB5&style=for-the-badge&logo=github&logoColor=white&labelColor=0d1117" alt="last commit"/>
   <img src="https://img.shields.io/badge/License-MIT-00F5D4?style=for-the-badge&logo=opensourceinitiative&logoColor=white&labelColor=0d1117" alt="license"/>
   <img src="https://img.shields.io/badge/Manifest-V3-9B5DE5?style=for-the-badge&logo=googlechrome&logoColor=white&labelColor=0d1117" alt="manifest v3"/>
 </p>
@@ -237,15 +237,15 @@ This repo ships with a ready-to-use GitHub Actions workflow (`.github/workflows/
 
 ```md
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/YOUR_USERNAME/ContextTab/output/github-contribution-grid-snake-dark.svg">
-  <img alt="contribution snake" src="https://raw.githubusercontent.com/YOUR_USERNAME/ContextTab/output/github-contribution-grid-snake.svg">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/sushanth-kumar-prog/Loom/output/github-contribution-grid-snake-dark.svg">
+  <img alt="contribution snake" src="https://raw.githubusercontent.com/sushanth-kumar-prog/Loom/output/github-contribution-grid-snake.svg">
 </picture>
 ```
 
 <div align="center">
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/YOUR_USERNAME/ContextTab/output/github-contribution-grid-snake-dark.svg">
-  <img alt="contribution snake" src="https://raw.githubusercontent.com/YOUR_USERNAME/ContextTab/output/github-contribution-grid-snake.svg" width="100%">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/sushanth-kumar-prog/Loom/output/github-contribution-grid-snake-dark.svg">
+  <img alt="contribution snake" src="https://raw.githubusercontent.com/sushanth-kumar-prog/Loom/output/github-contribution-grid-snake.svg" width="100%">
 </picture>
 </div>
 
@@ -307,6 +307,6 @@ ContextTab processes browsing details strictly inside the local extension enviro
 
 <sub><strong>Event:</strong> Elevate 2026 &nbsp;|&nbsp; <strong>Organizer:</strong> Ideakode &nbsp;|&nbsp; <strong>Team:</strong> sushramesh5</sub>
 <br/>
-<sub>Made with 🧠 + ☕ — replace <code>YOUR_USERNAME</code> throughout this README before pushing.</sub>
+<sub>Made with 🧠 + ☕ — repo: sushanth-kumar-prog/Loom</sub>
 
 </div>
