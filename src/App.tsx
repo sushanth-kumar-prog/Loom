@@ -894,7 +894,13 @@ ${JSON.stringify(state.timeline.slice(0, 10))}`;
                   </div>
                   <div className="flex items-center space-x-1.5 text-[9px] text-emerald-600 mt-1.5 font-medium">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                    <span>Connected - Llama 3 Free</span>
+                    <span>
+                      {state.apiProvider === 'openrouter' 
+                        ? 'Connected - OpenRouter Cloud (Llama 3 Free)' 
+                        : state.apiProvider === 'openai' 
+                        ? 'Connected - OpenAI Cloud (GPT-3.5)' 
+                        : 'Local Mode - Ollama Endpoint Active'}
+                    </span>
                   </div>
                 </div>
                 <div className="flex justify-between items-center text-xs border-t border-slate-100 pt-3">
