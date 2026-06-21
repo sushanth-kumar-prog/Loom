@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ContextTab - Browser Memory System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-color: #0b0f19;
+      --accent-color: #7c3aed;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: #1e293b;
+      --card-bg: #161f30;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.6;
+      padding: 0 20px;
+    }
+
+    header {
+      max-width: 1000px;
+      margin: 40px auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logo-icon {
+      width: 24px;
+      height: 24px;
+      background-color: var(--accent-color);
+      border-radius: 50%;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 80px auto;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 80px;
+    }
+
+    h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 24px;
+    }
+
+    h1 span {
+      color: var(--accent-color);
+    }
+
+    .hero-subtitle {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto 32px auto;
+    }
+
+    .btn {
+      display: inline-block;
+      background-color: var(--accent-color);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: opacity 0.2s;
+    }
+
+    .btn:hover {
+      opacity: 0.9;
+    }
+
+    .proof-section {
+      margin-bottom: 100px;
+    }
+
+    .proof-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    /* Extension Mockup Panel - Recreating the actual product interface */
+    .mockup-container {
+      display: grid;
+      grid-template-cols: 1fr;
+      gap: 30px;
+      max-width: 650px;
+      margin: 0 auto;
+      border: 1px solid var(--border-color);
+      background-color: #11131e;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .mockup-header {
+      padding: 16px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .mockup-title {
+      font-size: 0.875rem;
+      font-weight: 700;
+    }
+
+    .mockup-badge {
+      background-color: rgba(16, 185, 129, 0.1);
+      color: #10b981;
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      border-radius: 9999px;
+      border: 1px solid rgba(16, 185, 129, 0.2);
+    }
+
+    .mockup-body {
+      padding: 20px;
+    }
+
+    .mockup-workspace-card {
+      border: 1px solid var(--border-color);
+      border-left: 3px solid var(--accent-color);
+      background-color: #161929;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+
+    .workspace-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .workspace-desc {
+      font-size: 0.85rem;
+      color: var(--text-main);
+      margin-bottom: 12px;
+    }
+
+    .workspace-btn {
+      background-color: var(--accent-color);
+      color: white;
+      text-align: center;
+      padding: 8px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .repo-explain-section {
+      margin-top: 100px;
+      padding: 40px;
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+    }
+
+    .repo-explain-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .repo-explain-p {
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    .insight-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .insight-card {
+      background-color: var(--bg-color);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 20px;
+    }
+
+    .insight-heading {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--accent-color);
+      margin-bottom: 8px;
+    }
+
+    .insight-list {
+      list-style-type: none;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .insight-list li {
+      margin-bottom: 8px;
+      position: relative;
+      padding-left: 16px;
+    }
+
+    .insight-list li::before {
+      content: "•";
+      color: var(--accent-color);
+      position: absolute;
+      left: 0;
+    }
+
+    @media (max-width: 768px) {
+      .insight-grid {
+        grid-template-columns: 1fr;
+      }
+      h1 {
+        font-size: 2.25rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <div class="logo-icon"></div>
+      ContextTab
+    </div>
+  </header>
+
+  <div class="container">
+    <section class="hero">
+      <h1>Your browser, <span>organized.</span></h1>
+      <p class="hero-subtitle">
+        ContextTab is a Chrome Extension that groups open tabs by project automatically. It suspends inactive tabs to save memory and keeps your sessions saved so you can resume them anytime.
+      </p>
+      <a href="chrome://extensions/" class="btn">Add to Chrome</a>
+    </section>
+
+    <section class="proof-section">
+      <p class="proof-title">Real Product Interface (Live Extension Side Panel)</p>
+      
+      <!-- Real Mockup recreating figma layout -->
+      <div class="mockup-container">
+        <div class="mockup-header">
+          <div class="mockup-title">ContextTab Side Panel</div>
+          <div class="mockup-badge">Active</div>
+        </div>
+        <div class="mockup-body">
+          <div class="mockup-workspace-card">
+            <div class="workspace-meta">
+              <span>Folder: Client Website (AI Workspace)</span>
+              <span>8 tabs • 3 min ago</span>
+            </div>
+            <p class="workspace-desc">Designing homepage while preparing GitHub implementation and reviewing client feedback.</p>
+            <div class="workspace-btn">Resume Workspace</div>
+          </div>
+          <div class="mockup-workspace-card" style="border-left-color: #f59e0b;">
+            <div class="workspace-meta">
+              <span>Folder: Startup Research (Custom Workspace)</span>
+              <span>12 tabs • 2 hrs ago</span>
+            </div>
+            <p class="workspace-desc">Personal notes and research on startup ideas, market analysis and competitor deep-dives.</p>
+            <div class="workspace-btn" style="background-color: #f59e0b;">Resume Workspace</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AI Summary of Repository Issues & Fixes -->
+    <section class="repo-explain-section">
+      <h2 class="repo-explain-title">Repository Insight & Code Structure</h2>
+      <p class="repo-explain-p">Here is a plain English overview of this codebase, detailing the original startup issues and the fixes applied to make the extension operational.</p>
+      
+      <div class="insight-grid">
+        <div class="insight-card">
+          <h3 class="insight-heading">Codebase Structure</h3>
+          <ul class="insight-list">
+            <li><strong>manifest.json</strong>: Defines background service workers and requests permissions for tabs, storage, sidePanel, and scripting.</li>
+            <li><strong>background.ts</strong>: Service worker that runs in the background to handle tab state tracking and calls the AI model.</li>
+            <li><strong>App.tsx</strong>: React frontend that runs inside Chrome's Side Panel, loading states locally from storage.</li>
+          </ul>
+        </div>
+        
+        <div class="insight-card">
+          <h3 class="insight-heading">Identified Issues & Fixes</h3>
+          <ul class="insight-list">
+            <li><strong>The Asset Path Issue</strong>: Vite build outputs default base path parameters which fail inside extensions. Resolved by pointing inputs directly.</li>
+            <li><strong>Missing helper crash</strong>: The front-end referenced a missing `getDomain` method. Fixed by implementing the domain parser locally in App.tsx.</li>
+            <li><strong>No API Key Failures</strong>: Built graceful fallback structures so the extension runs locally on Ollama without requiring paid OpenAI keys.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

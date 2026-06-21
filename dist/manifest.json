@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "ContextTab",
+  "version": "1.0.0",
+  "description": "Your Browser's Second Brain - AI Workflow Organizer & Auto-Hibernation",
+  "permissions": [
+    "tabs",
+    "storage",
+    "sidePanel",
+    "alarms",
+    "scripting"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "side_panel": {
+    "default_path": "src/index.html"
+  },
+  "action": {
+    "default_title": "Open ContextTab Panel"
+  }
+}
