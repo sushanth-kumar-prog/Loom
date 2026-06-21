@@ -2,7 +2,7 @@
 
 # 🧠 ContextTab
 ### *Your Browser's Second Brain*
-#### 🏆 **Elevate 2026 Hackathon Submission** 🏆
+#### 🏆 **Elevate 2026 Hackathon ** 🏆
 
 <img src="https://readme-typing-svg.herokuapp.com?font=Orbitron&size=28&duration=3000&pause=1000&color=00D4AA&center=true&vCenter=true&width=800&lines=🧠+AI-Powered+Browser+Memory;📑+Workflow-Aware+Tab+Grouping;🌙+Smart+Inactivity+Hibernation;🔒+100%25+Local-First+%26+Private;⚡+Built+with+React+%2B+Vite+%2B+Manifest+V3" alt="ContextTab Typing SVG" />
 
