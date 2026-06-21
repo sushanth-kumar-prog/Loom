@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "ContextTab",
+  "name": "Tab Loom",
   "version": "1.0.0",
   "description": "Your Browser's Second Brain - AI Workflow Organizer & Auto-Hibernation",
   "permissions": [

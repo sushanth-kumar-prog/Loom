@@ -276,7 +276,7 @@ export default function App() {
   };
 
   const handleClearData = async () => {
-    if (confirm("Are you sure you want to clear all ContextTab workspace and history data?")) {
+    if (confirm("Are you sure you want to clear all Tab Loom workspace and history data?")) {
       const reset = {
         ...DEFAULT_STATE,
         apiKey: state.apiKey // Keep key
@@ -300,7 +300,7 @@ export default function App() {
       const workspacesList = state.workspaces.map(w => `- Project "${w.name}" (${w.type})`).join('\n');
 
       const systemContextPrompt = `You are the user's browser "Second Brain" assistant.
-Here is the context of what the user has currently open and saved in ContextTab:
+Here is the context of what the user has currently open and saved in Tab Loom:
 
 WORKSPACES/PROJECTS:
 ${workspacesList || "None created yet."}
@@ -374,7 +374,7 @@ Answer the user's question: "${userText}" in a helpful, friendly, plain English 
               <Brain className="w-4 h-4" />
             </div>
             <div>
-              <h1 className="text-xs font-bold text-slate-900 leading-none">ContextTab</h1>
+              <h1 className="text-xs font-bold text-slate-900 leading-none">Tab Loom</h1>
               <span className="text-[10px] text-slate-400">AI Browser Workspace</span>
             </div>
           </div>
@@ -676,7 +676,7 @@ Answer the user's question: "${userText}" in a helpful, friendly, plain English 
                     <Brain className="w-5 h-5" />
                   </div>
                   <div>
-                    <h3 className="text-xs font-bold text-slate-800">ContextTab AI</h3>
+                    <h3 className="text-xs font-bold text-slate-800">Tab Loom AI</h3>
                     <div className="flex items-center space-x-1 mt-0.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
                       <span className="text-[9px] text-slate-400 font-medium">Online • Proactive mode</span>
@@ -789,7 +789,7 @@ ${JSON.stringify(state.timeline.slice(0, 10))}`;
                         <RefreshCw className="w-3.5 h-3.5 animate-spin" />
                       </div>
                       <div className="bg-white border border-slate-100 p-3 rounded-2xl shadow-sm">
-                        <p className="text-[10px] text-slate-400">ContextTab AI is analyzing your tabs history...</p>
+                        <p className="text-[10px] text-slate-400">Tab Loom AI is analyzing your tabs history...</p>
                       </div>
                     </div>
                   )}
@@ -1015,7 +1015,7 @@ ${JSON.stringify(state.timeline.slice(0, 10))}`;
               <div className="bg-white border border-slate-100 rounded-xl p-3.5 space-y-3 shadow-sm text-xs text-slate-600">
                 <h3 className="text-xs font-bold text-slate-900 flex items-center gap-2 mb-2">
                   <span className="w-5 h-5 rounded bg-slate-50 text-slate-500 flex items-center justify-center text-xs">ℹ️</span>
-                  <span>About ContextTab</span>
+                  <span>About Tab Loom</span>
                 </h3>
                 
                 <a href="#" className="flex justify-between items-center hover:text-slate-900 py-1">
@@ -1038,7 +1038,7 @@ ${JSON.stringify(state.timeline.slice(0, 10))}`;
 
               {/* Footer */}
               <p className="text-center text-[10px] text-slate-400 font-medium py-2">
-                Made with ❤️ for productivity • ContextTab v2.4.1
+                Made with ❤️ for productivity • Tab Loom v2.4.1
               </p>
 
             </div>
@@ -1083,7 +1083,7 @@ ${JSON.stringify(state.timeline.slice(0, 10))}`;
               
               {/* Welcome banner */}
               <div className="bg-brand-600 text-white rounded-2xl p-5 space-y-2.5 shadow-md shadow-brand-500/10 text-left">
-                <h2 className="text-sm font-bold leading-tight">Welcome back to ContextTab</h2>
+                <h2 className="text-sm font-bold leading-tight">Welcome back to Tab Loom</h2>
                 <p className="text-[11px] opacity-90 leading-relaxed">
                   Your workflow browser companion is running. We are tracking active intention pathways to automate layout recovery.
                 </p>

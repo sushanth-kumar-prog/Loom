@@ -324,7 +324,7 @@ async function triggerWorkflowGrouping() {
       description: t.metaDescription || ''
     }));
 
-    const prompt = `You are the intelligence engine for "ContextTab", an advanced browser tab organizer. Your objective is to solve a workflow problem ("What project is the user trying to accomplish?") rather than a classification problem ("What is this page about?").
+    const prompt = `You are the intelligence engine for "Tab Loom", an advanced browser tab organizer. Your objective is to solve a workflow problem ("What project is the user trying to accomplish?") rather than a classification problem ("What is this page about?").
 
 INPUT:
 ${JSON.stringify(inputPayload, null, 2)}
@@ -475,8 +475,8 @@ async function callAI(state: ExtensionState, prompt: string, jsonMode = false): 
   };
 
   if (state.apiProvider === 'openrouter') {
-    headers['HTTP-Referer'] = 'https://contexttab.ai';
-    headers['X-Title'] = 'ContextTab';
+    headers['HTTP-Referer'] = 'https://tabloom.ai';
+    headers['X-Title'] = 'Tab Loom';
   }
 
   const body = {
