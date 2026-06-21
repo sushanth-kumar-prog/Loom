@@ -42,8 +42,7 @@
 
 ## The Pitch in One Breath
 
-> TabLoom is a smart Chrome extension designed to solve "tab hoarding." Instead of keeping dozens of tabs open out of fear of losing your thoughts, it uses AI to organize them by what you are actually doing, and puts unused tabs to sleep to speed up your computer.
-
+>TabLoom is a smart Chrome extension designed to solve "tab hoarding." Instead of keeping dozens of tabs open out of fear of losing your thoughts, it uses AI to organize them by what you are actually doing, and puts unused tabs to sleep to speed up your computer.
 <table>
 <tr>
 <td width="50%" align="center">
@@ -108,28 +107,44 @@ graph TD
 
 ## Tech Stack
 
-<div align="center">
+<table align="center">
+<tr>
+<td width="33%" align="center">
 
 **Frontend Panel**
-<br/>
-<img src="https://skillicons.dev/icons?i=react,vite,typescript,tailwind" height="48"/>
 
-<br/><br/>
+<img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB&labelColor=0d1117"/>
+<img src="https://img.shields.io/badge/Vite-FFD62E?style=for-the-badge&logo=vite&logoColor=646CFF&labelColor=0d1117"/>
+<br/>
+<img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white&labelColor=0d1117"/>
+<img src="https://img.shields.io/badge/Tailwind-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white&labelColor=0d1117"/>
+
+</td>
+<td width="33%" align="center">
 
 **Engine & Browser APIs**
-<br/>
-<img src="https://skillicons.dev/icons?i=javascript,nodejs,chrome,webpack" height="48"/>
 
-<br/><br/>
+<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black&labelColor=0d1117"/>
+<img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white&labelColor=0d1117"/>
+<br/>
+<img src="https://img.shields.io/badge/Chrome-4285F4?style=for-the-badge&logo=googlechrome&logoColor=white&labelColor=0d1117"/>
+<img src="https://img.shields.io/badge/Webpack-8DD6F9?style=for-the-badge&logo=webpack&logoColor=black&labelColor=0d1117"/>
+
+</td>
+<td width="33%" align="center">
 
 **AI Orchestration**
-<br/>
-<img src="https://skillicons.dev/icons?i=openai,python" height="48"/>
-<img src="https://img.shields.io/badge/OpenRouter-6B5CE6?style=for-the-badge&logo=openrouter&logoColor=white&labelColor=0d1117" height="48"/>
 
-</div>
+<img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white&labelColor=0d1117"/>
+<br/>
+<img src="https://img.shields.io/badge/OpenRouter-6B5CE6?style=for-the-badge&logoColor=white&labelColor=0d1117"/>
+
+</td>
+</tr>
+</table>
 
 <img src="./assets/divider.svg" width="100%" height="4"/>
+
 
 ## Core Capabilities
 
@@ -239,16 +254,6 @@ This produces a production-ready **`dist/`** folder with `manifest.json`, `backg
 | 8 | Right-click icon → **Inspect Side Panel**, or open the **service worker** link in `chrome://extensions/` for logs |
 
 <img src="./assets/divider.svg" width="100%" height="4"/>
-
-<details>
-<summary><sub>Snake graphic not animating yet?</sub></summary>
-
-This repo's `.github/workflows/snake.yml` auto-generates it from this account's contribution history.
-1. **Settings → Actions → General** → set Workflow permissions to **Read and write**
-2. **Actions** tab → run the **generate-snake** workflow once
-3. It publishes to an auto-created `output` branch, then goes live above automatically. No further upkeep needed.
-
-</details>
 
 <img src="./assets/divider.svg" width="100%" height="4"/>
 
