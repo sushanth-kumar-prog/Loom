@@ -12,7 +12,7 @@
   <img src="https://img.shields.io/badge/Manifest-V3-9B5DE5?style=for-the-badge&logo=googlechrome&logoColor=white&labelColor=0d1117" alt="manifest v3"/>
 </p>
 <p align="center">
-  <img src="https://komarev.com/ghpvc/?username=ContextTab-Elevate2026&style=for-the-badge&color=F15BB5&labelColor=0d1117&label=PEOPLE%20VIEWING%20THIS" alt="live views"/>
+  <img src="https://komarev.com/ghpvc/?username=ContextTab-Elevate2026&style=for-the-badge&color=F15BB5&labelColor=0d1117&label=JUDGES%20VIEWING%20THIS" alt="live views"/>
 </p>
 
 <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=18&duration=2200&pause=400&color=5eead4&center=true&vCenter=true&width=820&lines=%24+npm+run+build;%E2%9C%93+compiled+background.js+%2B+side+panel+bundle;%24+ollama+run+gemma4;%E2%9C%93+local+inference+ready+%E2%80%94+0+API+cost;%E2%9C%93+50+tabs+%E2%86%92+4+intent-grouped+workspaces;%E2%9C%93+312MB+RAM+reclaimed+this+session" alt="fake terminal session" />
@@ -26,6 +26,15 @@
   <img src="https://img.shields.io/badge/Organizer-Ideakode-9B5DE5?style=for-the-badge&logo=hackthebox&logoColor=white&labelColor=0d1117" alt="organizer"/>
   <img src="https://img.shields.io/badge/Team-sushramesh5-00F5D4?style=for-the-badge&logo=github&logoColor=white&labelColor=0d1117" alt="team"/>
 </p>
+
+<img src="./assets/divider.svg" width="100%" height="4"/>
+
+<div align="center">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/sushanth-kumar-prog/Loom/output/github-contribution-grid-snake-dark.svg">
+  <img alt="contribution snake" src="https://raw.githubusercontent.com/sushanth-kumar-prog/Loom/output/github-contribution-grid-snake.svg" width="100%">
+</picture>
+</div>
 
 <img src="./assets/divider.svg" width="100%" height="4"/>
 
@@ -225,31 +234,15 @@ This produces a production-ready **`dist/`** folder with `manifest.json`, `backg
 
 <img src="./assets/divider.svg" width="100%" height="4"/>
 
-## 🐍 Live Contribution Snake
+<details>
+<summary><sub>🐍 Snake graphic not animating yet?</sub></summary>
 
-This repo ships with a ready-to-use GitHub Actions workflow (`.github/workflows/snake.yml`) that renders the maintainer's contribution graph as an animated snake, updated daily.
+This repo's `.github/workflows/snake.yml` auto-generates it from this account's contribution history.
+1. **Settings → Actions → General** → set Workflow permissions to **Read and write**
+2. **Actions** tab → run the **generate-snake** workflow once
+3. It publishes to an auto-created `output` branch, then goes live above automatically — no further upkeep needed
 
-**To activate it:**
-1. Push this repo to GitHub with the included `.github/workflows/snake.yml`
-2. In **Settings → Actions → General**, set Workflow permissions to **Read and write**
-3. Run the workflow once from the **Actions** tab (or wait for the next push/cron tick)
-4. It publishes the SVGs to an auto-created `output` branch — then embed it:
-
-```md
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/sushanth-kumar-prog/Loom/output/github-contribution-grid-snake-dark.svg">
-  <img alt="contribution snake" src="https://raw.githubusercontent.com/sushanth-kumar-prog/Loom/output/github-contribution-grid-snake.svg">
-</picture>
-```
-
-<div align="center">
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/sushanth-kumar-prog/Loom/output/github-contribution-grid-snake-dark.svg">
-  <img alt="contribution snake" src="https://raw.githubusercontent.com/sushanth-kumar-prog/Loom/output/github-contribution-grid-snake.svg" width="100%">
-</picture>
-</div>
-
-> Until the workflow has run at least once, the image above will 404 — that's expected for a brand-new repo. The moment Actions runs, it goes live and starts animating automatically, no further upkeep needed.
+</details>
 
 <img src="./assets/divider.svg" width="100%" height="4"/>
 
