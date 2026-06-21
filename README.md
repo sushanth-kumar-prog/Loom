@@ -12,7 +12,7 @@
   <img src="https://img.shields.io/badge/Manifest-V3-9B5DE5?style=for-the-badge&logo=googlechrome&logoColor=white&labelColor=0d1117" alt="manifest v3"/>
 </p>
 <p align="center">
-  <img src="https://komarev.com/ghpvc/?username=ContextTab-Elevate2026&style=for-the-badge&color=F15BB5&labelColor=0d1117&label=JUDGES%20VIEWING%20THIS" alt="live views"/>
+  <img src="https://komarev.com/ghpvc/?username=ContextTab-Elevate2026&style=for-the-badge&color=F15BB5&labelColor=0d1117&label=PEOPLE%20VIEWING%20THIS" alt="live views"/>
 </p>
 
 <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=18&duration=2200&pause=400&color=5eead4&center=true&vCenter=true&width=820&lines=%24+npm+run+build;%E2%9C%93+compiled+background.js+%2B+side+panel+bundle;%24+ollama+run+gemma4;%E2%9C%93+local+inference+ready+%E2%80%94+0+API+cost;%E2%9C%93+50+tabs+%E2%86%92+4+intent-grouped+workspaces;%E2%9C%93+312MB+RAM+reclaimed+this+session" alt="fake terminal session" />
