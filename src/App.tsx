@@ -93,13 +93,7 @@ export default function App() {
   const [editingName, setEditingName] = useState('');
 
   // Assistant Chat Thread
-  const [chatMessages, setChatMessages] = useState<Array<{ role: 'user' | 'assistant'; text: string; timestamp: number }>>([
-    {
-      role: 'assistant',
-      text: "Welcome back, Jordan. Yesterday you spent 4 hours designing the Client Website homepage. You have 34 tabs across 5 projects, and I've hibernated 29 of them to save you 2.3 GB of RAM. Ready to pick up where you left off?",
-      timestamp: Date.now()
-    }
-  ]);
+  const [chatMessages, setChatMessages] = useState<Array<{ role: 'user' | 'assistant'; text: string; timestamp: number }>>([]);
   const [chatInput, setChatInput] = useState('');
   const [isChatLoading, setIsChatLoading] = useState(false);
 
