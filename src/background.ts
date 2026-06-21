@@ -464,6 +464,7 @@ async function callAI(state: ExtensionState, prompt: string, jsonMode = false): 
     model,
     messages: [{ role: 'user', content: prompt }],
     temperature: 0.2,
+    max_tokens: 1500, // Limit max tokens explicitly to bypass OpenRouter default limit calculations
     ...(jsonMode && state.apiProvider === 'openai' ? { response_format: { type: 'json_object' } } : {})
   };
 
