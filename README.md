@@ -12,12 +12,20 @@
   <img src="https://img.shields.io/badge/Manifest-V3-9B5DE5?style=for-the-badge&logo=googlechrome&logoColor=white&labelColor=0d1117" alt="manifest v3"/>
 </p>
 <p align="center">
-  <img src="https://komarev.com/ghpvc/?username=ContextTab-Elevate2026&style=for-the-badge&color=F15BB5&labelColor=0d1117&label=PEOPLE%20VIEWING%20THIS" alt="live views"/>
+  <img src="https://komarev.com/ghpvc/?username=ContextTab-Elevate2026&style=for-the-badge&color=F15BB5&labelColor=0d1117&label=JUDGES%20VIEWING%20THIS" alt="live views"/>
 </p>
 
 <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=18&duration=2200&pause=400&color=5eead4&center=true&vCenter=true&width=820&lines=%24+npm+run+build;%E2%9C%93+compiled+background.js+%2B+side+panel+bundle;%24+ollama+run+gemma4;%E2%9C%93+local+inference+ready+%E2%80%94+0+API+cost;%E2%9C%93+50+tabs+%E2%86%92+4+intent-grouped+workspaces;%E2%9C%93+312MB+RAM+reclaimed+this+session" alt="fake terminal session" />
 
 </div>
+
+<img src="https://readme-typing-svg.herokuapp.com?font=Orbitron&size=22&duration=4000&pause=1500&color=F15BB5&center=true&vCenter=true&multiline=true&width=800&height=70&lines=Elevate+2026;Organized+by+Ideakode" alt="event banner" />
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Event-Elevate%202026-F15BB5?style=for-the-badge&logo=googlechrome&logoColor=white&labelColor=0d1117" alt="event"/>
+  <img src="https://img.shields.io/badge/Organizer-Ideakode-9B5DE5?style=for-the-badge&logo=hackthebox&logoColor=white&labelColor=0d1117" alt="organizer"/>
+  <img src="https://img.shields.io/badge/Team-sushramesh5-00F5D4?style=for-the-badge&logo=github&logoColor=white&labelColor=0d1117" alt="team"/>
+</p>
 
 <img src="./assets/divider.svg" width="100%" height="4"/>
 
@@ -295,8 +303,10 @@ ContextTab processes browsing details strictly inside the local extension enviro
 
 <div align="center">
 
-<img src="https://readme-typing-svg.herokuapp.com?font=JetBrains+Mono&size=16&duration=3000&pause=1000&color=9B5DE5&center=true&vCenter=true&width=700&lines=Status%3A+MVP+%E2%80%94+Open+to+Collaborations;Built+for+Elevate+2026;Star+%E2%AD%90+this+repo+if+ContextTab+saved+your+RAM" alt="status" />
+<img src="https://readme-typing-svg.herokuapp.com?font=JetBrains+Mono&size=16&duration=3000&pause=1000&color=9B5DE5&center=true&vCenter=true&width=700&lines=Status%3A+MVP+%E2%80%94+Open+to+Collaborations;Built+for+Elevate+2026+by+Ideakode;Star+%E2%AD%90+this+repo+if+ContextTab+saved+your+RAM" alt="status" />
 
-<sub>Made with 🧠 + ☕ for Elevate 2026 — replace <code>YOUR_USERNAME</code> throughout this README before pushing.</sub>
+<sub><strong>Event:</strong> Elevate 2026 &nbsp;|&nbsp; <strong>Organizer:</strong> Ideakode &nbsp;|&nbsp; <strong>Team:</strong> sushramesh5</sub>
+<br/>
+<sub>Made with 🧠 + ☕ — replace <code>YOUR_USERNAME</code> throughout this README before pushing.</sub>
 
 </div>
