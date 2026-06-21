@@ -318,53 +318,19 @@ Answer the user's question: "${userText}" in a helpful, friendly, plain English 
   };
 
   const callAI = async (configState: ExtensionState, prompt: string): Promise<string> => {
-    const url = configState.apiProvider === 'openai' 
-      ? 'https://api.openai.com/v1/chat/completions'
-      : configState.apiProvider === 'openrouter'
-      ? 'https://openrouter.ai/api/v1/chat/completions'
-      : configState.ollamaEndpoint;
-
-    const headers: Record<string, string> = {
-      'Content-Type': 'application/json'
-    };
-
-    if (configState.apiProvider !== 'ollama') {
-      headers['Authorization'] = `Bearer ${configState.apiKey}`;
-    }
-    if (configState.apiProvider === 'openrouter') {
-      headers['HTTP-Referer'] = 'https://contexttab.ai';
-      headers['X-Title'] = 'ContextTab';
-    }
-
-    const model = configState.apiProvider === 'openai' 
-      ? 'gpt-3.5-turbo' 
-      : configState.apiProvider === 'openrouter'
-      ? 'meta-llama/llama-3-8b-instruct:free'
-      : configState.ollamaModel;
-
-    const body = {
-      model,
-      messages: [{ role: 'user', content: prompt }],
-      temperature: 0.3,
-      stream: false
-    };
-
-    const res = await fetch(url, {
-      method: 'POST',
-      headers,
-      body: JSON.stringify(body)
+    return new Promise((resolve, reject) => {
+      chrome.runtime.sendMessage({ type: 'CALL_AI', prompt }, (response) => {
+        if (chrome.runtime.lastError) {
+          reject(new Error(chrome.runtime.lastError.message));
+        } else if (response && response.error) {
+          reject(new Error(response.error));
+        } else if (response && response.content !== undefined) {
+          resolve(response.content);
+        } else {
+          reject(new Error("Empty response from AI"));
+        }
+      });
     });
-
-    if (!res.ok) {
-      throw new Error(`AI Request failed: ${res.statusText}`);
-    }
-
-    const data = await res.json();
-    if (configState.apiProvider === 'ollama') {
-      return data.message?.content?.trim() || '';
-    } else {
-      return data.choices[0].message?.content?.trim() || '';
-    }
   };
 
   // Counting metrics for badges

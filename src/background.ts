@@ -381,11 +381,19 @@ Output ONLY valid JSON. Output format example:
   }
 }
 
-// Listen to runtime messages for triggering workflow grouping manually
+// Listen to runtime messages for triggering workflow grouping manually or requesting AI completions
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.type === 'TRIGGER_GROUPING') {
     triggerWorkflowGrouping().then(() => sendResponse({ success: true }));
     return true; 
+  }
+  if (message.type === 'CALL_AI') {
+    getState().then(state => {
+      callAI(state, message.prompt)
+        .then(content => sendResponse({ content }))
+        .catch(err => sendResponse({ error: err.message || String(err) }));
+    });
+    return true; // Keep message channel open for asynchronous sendResponse
   }
 });
 
