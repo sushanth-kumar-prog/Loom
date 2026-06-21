@@ -42,7 +42,7 @@
 
 ## The Pitch in One Breath
 
-> Knowledge workers don't hoard tabs out of laziness. They hoard them because **closing a tab feels like losing a thought**. TabLoom is a Manifest V3 Chrome extension that watches your tabs, asks a cloud LLM *"what is this person actually trying to do?"*, clusters tabs into named workspaces by **intent** instead of domain, and puts idle tabs to sleep, reclaiming RAM while keeping inference fast and scalable through OpenRouter.
+> TabLoom is a smart Chrome extension designed to solve "tab hoarding." Instead of keeping dozens of tabs open out of fear of losing your thoughts, it uses AI to organize them by what you are actually doing, and puts unused tabs to sleep to speed up your computer.
 
 <table>
 <tr>
@@ -286,6 +286,6 @@ TabLoom processes browsing details strictly inside the local extension environme
 
 <sub><strong>Event:</strong> Elevate 2026 &nbsp;|&nbsp; <strong>Organizer:</strong> Ideakode &nbsp;|&nbsp; <strong>Team:</strong> sushramesh5</sub>
 <br/>
-<sub>Made with passion and coffee. Repo: sushanth-kumar-prog/Loom</sub>
+<sub> Repo: sushanth-kumar-prog/Loom</sub>
 
 </div>
