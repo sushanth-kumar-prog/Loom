@@ -40,7 +40,7 @@
 
 <img src="./assets/divider.svg" width="100%" height="4"/>
 
-## The Pitch in One Breath
+## Our Vision
 
 > TabLoom is a smart Chrome extension designed to solve "tab hoarding." Instead of keeping dozens of tabs open out of fear of losing your thoughts, it uses AI to organize them by what you are actually doing, and puts unused tabs to sleep to speed up your computer.
 <table>
