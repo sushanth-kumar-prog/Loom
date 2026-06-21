@@ -57,7 +57,7 @@ const DEFAULT_STATE: ExtensionState = {
   workspaces: [],
   tabs: {},
   timeline: [],
-  apiKey: 'sk-or-v1-YOUR_OPENROUTER_KEY_FOR_JUDGES',
+  apiKey: '',
   apiProvider: 'openrouter',
   ollamaEndpoint: 'http://localhost:11434/api/chat',
   ollamaModel: 'gemma4',

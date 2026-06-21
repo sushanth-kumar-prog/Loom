@@ -48,7 +48,7 @@ const DEFAULT_STATE: ExtensionState = {
   workspaces: [],
   tabs: {},
   timeline: [],
-  apiKey: 'sk-or-v1-YOUR_OPENROUTER_KEY_FOR_JUDGES',
+  apiKey: '',
   apiProvider: 'openrouter',
   ollamaEndpoint: 'http://localhost:11434/api/chat',
   ollamaModel: 'gemma4',
@@ -399,6 +399,15 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
 // General AI call function
 async function callAI(state: ExtensionState, prompt: string, jsonMode = false): Promise<string> {
+  const model = state.apiProvider === 'openai' 
+    ? 'gpt-3.5-turbo' 
+    : 'google/gemini-2.5-flash'; // Using stable fast model instead of unstable llama-3-8b-instruct:free
+
+  console.log("Provider:", state.apiProvider);
+  console.log("Model:", model);
+  console.log("Key exists:", !!state.apiKey);
+  console.log("Prompt:", prompt);
+
   if (state.apiProvider === 'ollama') {
     const url = state.ollamaEndpoint || 'http://localhost:11434/api/chat';
     const body = {
@@ -415,17 +424,22 @@ async function callAI(state: ExtensionState, prompt: string, jsonMode = false): 
       body: JSON.stringify(body)
     });
 
+    console.log("Response Status:", res.status);
+
     if (!res.ok) {
-      throw new Error(`Ollama API failed: ${res.statusText}`);
+      const errorText = await res.text();
+      console.error("AI Error:", errorText);
+      throw new Error(`AI API failed: ${res.status} ${errorText}`);
     }
 
     const data = await res.json();
+    console.log("AI Response:", data);
     let content = data.message?.content?.trim() || '';
 
     if (jsonMode) {
-      const match = content.match(/\[\s*\{.*\}\s*\]/s);
-      if (match) {
-        content = match[0];
+      const jsonMatch = content.match(/\{[\s\S]*\}/);
+      if (jsonMatch) {
+        content = jsonMatch[0];
       }
     }
 
@@ -446,8 +460,6 @@ async function callAI(state: ExtensionState, prompt: string, jsonMode = false): 
     headers['X-Title'] = 'ContextTab';
   }
 
-  const model = state.apiProvider === 'openai' ? 'gpt-3.5-turbo' : 'meta-llama/llama-3-8b-instruct:free';
-
   const body = {
     model,
     messages: [{ role: 'user', content: prompt }],
@@ -461,17 +473,22 @@ async function callAI(state: ExtensionState, prompt: string, jsonMode = false): 
     body: JSON.stringify(body)
   });
 
+  console.log("Response Status:", res.status);
+
   if (!res.ok) {
-    throw new Error(`AI API failed: ${res.statusText}`);
+    const errorText = await res.text();
+    console.error("AI Error:", errorText);
+    throw new Error(`AI API failed: ${res.status} ${errorText}`);
   }
 
   const data = await res.json();
+  console.log("AI Response:", data);
   let content = data.choices[0].message.content.trim();
   
   if (jsonMode) {
-    const match = content.match(/\[\s*\{.*\}\s*\]/s);
-    if (match) {
-      content = match[0];
+    const jsonMatch = content.match(/\{[\s\S]*\}/);
+    if (jsonMatch) {
+      content = jsonMatch[0];
     }
   }
 
