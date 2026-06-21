@@ -68,42 +68,42 @@
   <g filter="url(#boxGlow)">
     <rect x="40" y="60" width="220" height="70" rx="12" fill="#0d1726" stroke="url(#boxStroke)" stroke-width="1.6"/>
   </g>
-  <text x="150" y="88" text-anchor="middle" font-family="Verdana" font-size="15" font-weight="bold" fill="#e6edf7">🌐 Tab Activity Monitor</text>
+  <text x="150" y="88" text-anchor="middle" font-family="Verdana" font-size="15" font-weight="bold" fill="#e6edf7">Tab Activity Monitor</text>
   <text x="150" y="108" text-anchor="middle" font-family="Consolas, monospace" font-size="11" fill="#7c8aa3">chrome.tabs · service worker</text>
 
   <!-- Box: AI Engine -->
   <g filter="url(#boxGlow)">
     <rect x="400" y="60" width="280" height="70" rx="12" fill="#0d1726" stroke="url(#boxStroke)" stroke-width="1.6"/>
   </g>
-  <text x="540" y="88" text-anchor="middle" font-family="Verdana" font-size="15" font-weight="bold" fill="#e6edf7">🤖 Ollama AI Engine</text>
-  <text x="540" y="108" text-anchor="middle" font-family="Consolas, monospace" font-size="11" fill="#7c8aa3">gemma4 · localhost:11434</text>
+  <text x="540" y="88" text-anchor="middle" font-family="Verdana" font-size="15" font-weight="bold" fill="#e6edf7">OpenRouter AI Engine</text>
+  <text x="540" y="108" text-anchor="middle" font-family="Consolas, monospace" font-size="11" fill="#7c8aa3">cloud inference · api.openrouter.ai</text>
 
   <!-- Box: Workspace Organizer -->
   <g filter="url(#boxGlow)">
     <rect x="800" y="60" width="200" height="70" rx="12" fill="#0d1726" stroke="url(#boxStroke)" stroke-width="1.6"/>
   </g>
-  <text x="900" y="88" text-anchor="middle" font-family="Verdana" font-size="14" font-weight="bold" fill="#e6edf7">📊 Workspace</text>
+  <text x="900" y="88" text-anchor="middle" font-family="Verdana" font-size="14" font-weight="bold" fill="#e6edf7">Workspace</text>
   <text x="900" y="106" text-anchor="middle" font-family="Verdana" font-size="14" font-weight="bold" fill="#e6edf7">Organizer</text>
 
   <!-- Box: Hibernation Worker -->
   <g filter="url(#boxGlow)">
     <rect x="40" y="260" width="220" height="70" rx="12" fill="#0d1726" stroke="#9B5DE5" stroke-width="1.6"/>
   </g>
-  <text x="150" y="288" text-anchor="middle" font-family="Verdana" font-size="15" font-weight="bold" fill="#e6edf7">🌙 Hibernation Worker</text>
+  <text x="150" y="288" text-anchor="middle" font-family="Verdana" font-size="15" font-weight="bold" fill="#e6edf7">Hibernation Worker</text>
   <text x="150" y="308" text-anchor="middle" font-family="Consolas, monospace" font-size="11" fill="#7c8aa3">chrome.alarms · idle timeout</text>
 
   <!-- Box: RAM Tracker -->
   <g filter="url(#boxGlow)">
     <rect x="400" y="260" width="280" height="70" rx="12" fill="#0d1726" stroke="#9B5DE5" stroke-width="1.6"/>
   </g>
-  <text x="540" y="288" text-anchor="middle" font-family="Verdana" font-size="15" font-weight="bold" fill="#e6edf7">💾 RAM Savings Tracker</text>
+  <text x="540" y="288" text-anchor="middle" font-family="Verdana" font-size="15" font-weight="bold" fill="#e6edf7">RAM Savings Tracker</text>
   <text x="540" y="308" text-anchor="middle" font-family="Consolas, monospace" font-size="11" fill="#7c8aa3">up to 120MB reclaimed / tab</text>
 
   <!-- Box: Side Panel UI -->
   <g filter="url(#boxGlow)">
     <rect x="800" y="260" width="200" height="70" rx="12" fill="#0d1726" stroke="url(#boxStroke)" stroke-width="1.6"/>
   </g>
-  <text x="900" y="288" text-anchor="middle" font-family="Verdana" font-size="14" font-weight="bold" fill="#e6edf7">🖥️ Side Panel</text>
+  <text x="900" y="288" text-anchor="middle" font-family="Verdana" font-size="14" font-weight="bold" fill="#e6edf7">Side Panel</text>
   <text x="900" y="306" text-anchor="middle" font-family="Verdana" font-size="14" font-weight="bold" fill="#e6edf7">UI (React)</text>
 
   <text x="520" y="450" text-anchor="middle" font-family="Consolas, monospace" font-size="12" fill="#5b6b85">pink loop = context restored instantly on tab wake</text>
