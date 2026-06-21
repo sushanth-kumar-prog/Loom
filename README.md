@@ -40,7 +40,7 @@
 
 <img src="./assets/divider.svg" width="100%" height="4"/>
 
-## Our Vision
+## The Pitch in One Breath
 
 > TabLoom is a smart Chrome extension designed to solve "tab hoarding." Instead of keeping dozens of tabs open out of fear of losing your thoughts, it uses AI to organize them by what you are actually doing, and puts unused tabs to sleep to speed up your computer.
 <table>
@@ -82,7 +82,7 @@ Privacy:           routed through OpenRouter, keys local
 
 <div align="center">
 <details>
-<summary><img src="https://img.shields.io/badge/VIEW%20MERMAID%20DIAGRAM-00F5D4?style=for-the-badge&logoColor=0d1117&labelColor=9B5DE5"/></summary>
+<summary>Click the arrow to view the Mermaid diagram &nbsp;<img src="https://img.shields.io/badge/VIEW%20MERMAID%20DIAGRAM-000000?style=for-the-badge&logoColor=00F5D4"/></summary>
 
 ```mermaid
 graph TD
@@ -257,19 +257,7 @@ This produces a production-ready **`dist/`** folder with `manifest.json`, `backg
 
 <img src="./assets/divider.svg" width="100%" height="4"/>
 
-<details>
-<summary><sub>Snake graphic not animating yet?</sub></summary>
 
-This repo's `.github/workflows/snake.yml` auto-generates it from this account's contribution history.
-1. **Settings → Actions → General** → set Workflow permissions to **Read and write**
-2. **Actions** tab → run the **generate-snake** workflow once
-3. It publishes to an auto-created `output` branch, then goes live above automatically. No further upkeep needed.
-
-</details>
-
-<img src="./assets/divider.svg" width="100%" height="4"/>
-
-<details>
 <summary><strong>Q&A Preparation (click to expand)</strong></summary>
 
 **Q1: How do you preserve privacy when sending data to AI?**
@@ -303,6 +291,6 @@ TabLoom processes browsing details strictly inside the local extension environme
 
 <sub><strong>Event:</strong> Elevate 2026 &nbsp;|&nbsp; <strong>Organizer:</strong> Ideakode &nbsp;|&nbsp; <strong>Team:</strong> sushramesh5</sub>
 <br/>
-<sub> Repo: sushanth-kumar-prog/Loom</sub>
+<sub>Repo: sushanth-kumar-prog/Loom</sub>
 
 </div>
