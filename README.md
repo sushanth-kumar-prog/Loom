@@ -258,7 +258,7 @@ This produces a production-ready **`dist/`** folder with `manifest.json`, `backg
 <img src="./assets/divider.svg" width="100%" height="4"/>
 
 
-<summary><strong>Q&A Preparation (click to expand)</strong></summary>
+<summary><strong>Q&A</strong></summary>
 
 **Q1: How do you preserve privacy when sending data to AI?**
 > TabLoom is serverless. API keys live only in `chrome.storage.local`. Only public page metadata (titles, domains) is sent to OpenRouter for classification, never passwords, form entries, or cookies.
