@@ -312,9 +312,9 @@ Answer the user's question: "${userText}" in a helpful, friendly, plain English 
 
       const response = await callAI(state, systemContextPrompt);
       setChatMessages(prev => [...prev, { role: 'assistant', text: response, timestamp: Date.now() }]);
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
-      setChatMessages(prev => [...prev, { role: 'assistant', text: "Sorry, I couldn't reach the AI cloud endpoint. Check your internet connection or settings.", timestamp: Date.now() }]);
+      setChatMessages(prev => [...prev, { role: 'assistant', text: `AI Error: ${err.message || String(err)}`, timestamp: Date.now() }]);
     } finally {
       setIsChatLoading(false);
     }
