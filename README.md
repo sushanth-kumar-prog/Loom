@@ -82,7 +82,7 @@ Privacy:           routed through OpenRouter, keys local
 
 <div align="center">
 <details>
-<summary>Click the arrow to view the Mermaid diagram &nbsp;<img src="https://img.shields.io/badge/20MERMAID%20DIAGRAM-000000?style=for-the-badge&logoColor=00F5D4"/></summary>
+<summary>Click the arrow to view the Mermaid diagram &nbsp;<img src="https://img.shields.io/badge/%20MERMAID%20DIAGRAM-000000?style=for-the-badge&logoColor=00F5D4"/></summary>
 
 ```mermaid
 graph TD
