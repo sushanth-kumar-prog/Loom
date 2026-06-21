@@ -40,9 +40,9 @@
 
 <img src="./assets/divider.svg" width="100%" height="4"/>
 
-## The Pitch in One Breath
+## Our Vision
 
->TabLoom is a smart Chrome extension designed to solve "tab hoarding." Instead of keeping dozens of tabs open out of fear of losing your thoughts, it uses AI to organize them by what you are actually doing, and puts unused tabs to sleep to speed up your computer.
+> TabLoom is a smart Chrome extension designed to solve "tab hoarding." Instead of keeping dozens of tabs open out of fear of losing your thoughts, it uses AI to organize them by what you are actually doing, and puts unused tabs to sleep to speed up your computer.
 <table>
 <tr>
 <td width="50%" align="center">
@@ -80,8 +80,9 @@ Privacy:           routed through OpenRouter, keys local
 <img src="./assets/architecture-flow.svg" width="100%" alt="Animated TabLoom architecture diagram"/>
 </div>
 
+<div align="center">
 <details>
-<summary><strong>Prefer a static technical diagram? Click to expand the Mermaid version</strong></summary>
+<summary><img src="https://img.shields.io/badge/VIEW%20MERMAID%20DIAGRAM-00F5D4?style=for-the-badge&logoColor=0d1117&labelColor=9B5DE5"/></summary>
 
 ```mermaid
 graph TD
@@ -102,6 +103,7 @@ graph TD
 ```
 
 </details>
+</div>
 
 <img src="./assets/divider.svg" width="100%" height="4"/>
 
@@ -254,6 +256,16 @@ This produces a production-ready **`dist/`** folder with `manifest.json`, `backg
 | 8 | Right-click icon → **Inspect Side Panel**, or open the **service worker** link in `chrome://extensions/` for logs |
 
 <img src="./assets/divider.svg" width="100%" height="4"/>
+
+<details>
+<summary><sub>Snake graphic not animating yet?</sub></summary>
+
+This repo's `.github/workflows/snake.yml` auto-generates it from this account's contribution history.
+1. **Settings → Actions → General** → set Workflow permissions to **Read and write**
+2. **Actions** tab → run the **generate-snake** workflow once
+3. It publishes to an auto-created `output` branch, then goes live above automatically. No further upkeep needed.
+
+</details>
 
 <img src="./assets/divider.svg" width="100%" height="4"/>
 
