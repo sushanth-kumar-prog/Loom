@@ -51,6 +51,7 @@ interface ExtensionState {
     autoHibernationEnabled: boolean;
     autoProjectDetection: boolean;
   };
+  summaryCache?: Record<string, string>;
 }
 
 const DEFAULT_STATE: ExtensionState = {
@@ -65,7 +66,8 @@ const DEFAULT_STATE: ExtensionState = {
     hibernationTimeoutMins: 30,
     autoHibernationEnabled: true,
     autoProjectDetection: true,
-  }
+  },
+  summaryCache: {}
 };
 
 function getDomain(url: string): string {
@@ -79,7 +81,7 @@ function getDomain(url: string): string {
 export default function App() {
   const [state, setState] = useState<ExtensionState>(DEFAULT_STATE);
   const [searchQuery, setSearchQuery] = useState('');
-  const [activeView, setActiveView] = useState<'home' | 'workspaces' | 'timeline' | 'assistant' | 'settings'>('assistant');
+  const [activeView, setActiveView] = useState<'home' | 'workspaces' | 'timeline' | 'assistant' | 'settings'>('workspaces');
   const [activeFilter, setActiveFilter] = useState<'all' | 'ai' | 'custom' | 'pinned' | 'archived'>('all');
   const [newWorkspaceName, setNewWorkspaceName] = useState('');
   const [activeTabList, setActiveTabList] = useState<chrome.tabs.Tab[]>([]);
@@ -109,7 +111,8 @@ export default function App() {
             settings: {
               ...DEFAULT_STATE.settings,
               ...(savedState.settings || {})
-            }
+            },
+            summaryCache: savedState.summaryCache || {}
           });
         } else {
           // If no state exists, save default state to trigger storage listeners
@@ -243,6 +246,34 @@ export default function App() {
     }
   };
 
+  const handleMoveTabToWorkspace = async (tabId: number, targetWsId: string) => {
+    const updatedTabs = { ...state.tabs };
+    if (updatedTabs[tabId]) {
+      const oldWsId = updatedTabs[tabId].workspaceId;
+      
+      const updatedWorkspaces = state.workspaces.map(w => {
+        let newTabIds = w.tabIds || [];
+        if (w.id === oldWsId) {
+          newTabIds = newTabIds.filter(id => id !== tabId);
+        }
+        if (w.id === targetWsId) {
+          if (!newTabIds.includes(tabId)) {
+            newTabIds = [...newTabIds, tabId];
+          }
+        }
+        return { ...w, tabIds: newTabIds };
+      });
+
+      updatedTabs[tabId].workspaceId = targetWsId || undefined;
+
+      await updateState({
+        ...state,
+        workspaces: updatedWorkspaces,
+        tabs: updatedTabs
+      });
+    }
+  };
+
   const handleHibernateTab = async (tabId: number) => {
     if (typeof chrome !== 'undefined' && chrome.tabs) {
       try {
@@ -351,6 +382,7 @@ Answer the user's question: "${userText}" in a helpful, friendly, plain English 
       wsTabs.some(t => 
         t.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
         t.url.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (t.domain && t.domain.toLowerCase().includes(searchQuery.toLowerCase())) ||
         (t.summary && t.summary.toLowerCase().includes(searchQuery.toLowerCase()))
       );
 
@@ -360,6 +392,25 @@ Answer the user's question: "${userText}" in a helpful, friendly, plain English 
     if (activeFilter === 'pinned') return w.pinned;
     return true;
   });
+
+  // Feature [4] Pinned workspaces sort/display correctly
+  const sortedWorkspaces = [...filteredWorkspaces].sort((a, b) => {
+    if (a.pinned && !b.pinned) return -1;
+    if (!a.pinned && b.pinned) return 1;
+    return 0;
+  });
+
+  // Feature [5] Recent / Untracked Tabs list with search filtering
+  const recentTabs = Object.values(state.tabs)
+    .filter(t => {
+      if (!searchQuery) return true;
+      return t.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        t.url.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (t.domain && t.domain.toLowerCase().includes(searchQuery.toLowerCase())) ||
+        (t.summary && t.summary.toLowerCase().includes(searchQuery.toLowerCase()));
+    })
+    .sort((a, b) => b.lastActiveAt - a.lastActiveAt)
+    .slice(0, 5);
 
   return (
     <div className="w-full min-h-screen bg-slate-50 text-slate-800 flex flex-col justify-between font-sans pb-16 antialiased">
@@ -499,10 +550,10 @@ Answer the user's question: "${userText}" in a helpful, friendly, plain English 
 
               {/* Workspace list */}
               <div className="space-y-3">
-                {filteredWorkspaces.length === 0 ? (
+                {sortedWorkspaces.length === 0 ? (
                   <p className="text-xs text-slate-400 text-center py-8">No workspaces found</p>
                 ) : (
-                  filteredWorkspaces.map((ws) => {
+                  sortedWorkspaces.map((ws) => {
                     const wsTabs = Object.values(state.tabs).filter(t => t.workspaceId === ws.id);
                     const firstSummary = wsTabs.map(t => t.summary).filter(Boolean)[0];
                     const description = firstSummary || (wsTabs.length > 0 
@@ -533,7 +584,7 @@ Answer the user's question: "${userText}" in a helpful, friendly, plain English 
                               <h3 className="text-xs font-bold text-slate-800">{ws.name}</h3>
                             )}
                           </div>
-                          <span className="text-[8px] text-slate-400">Active</span>
+                          {ws.pinned && <Pin className="w-3 h-3 text-yellow-600 fill-current" />}
                         </div>
 
                         <div className="flex space-x-2 text-[9px]">
@@ -598,7 +649,7 @@ Answer the user's question: "${userText}" in a helpful, friendly, plain English 
 
                             {/* Workspace specific tab items */}
                             <div className="space-y-2">
-                              <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block">Workspace Sessions</span>
+                              <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block font-semibold">Workspace Sessions</span>
                               {wsTabs.length === 0 ? (
                                 <p className="text-[10px] text-slate-400 italic">No tabs grouped here yet.</p>
                               ) : (
@@ -617,12 +668,23 @@ Answer the user's question: "${userText}" in a helpful, friendly, plain English 
                                       </div>
                                     </div>
                                     <div className="flex items-center space-x-1.5 ml-2">
-                                      <button 
-                                        onClick={() => handleRemoveTabFromWorkspace(tab.id)}
-                                        className="text-[9px] text-slate-500 hover:text-red-500 hover:bg-slate-200 px-1.5 py-0.5 rounded transition-colors"
+                                      {/* Feature [4] Action-based tab move selector */}
+                                      <select
+                                        value={ws.id}
+                                        onChange={async (e) => {
+                                          const target = e.target.value;
+                                          if (target !== ws.id) {
+                                            await handleMoveTabToWorkspace(tab.id, target);
+                                          }
+                                        }}
+                                        className="bg-white border border-slate-200 text-[9px] rounded px-1 py-0.5 focus:outline-none focus:border-brand-500 text-slate-700 max-w-[80px]"
                                       >
-                                        Unlink
-                                      </button>
+                                        <option value={ws.id}>Move...</option>
+                                        {state.workspaces.filter(w => w.id !== ws.id).map(w => (
+                                          <option key={w.id} value={w.id}>{w.name}</option>
+                                        ))}
+                                        <option value="">Unlink</option>
+                                      </select>
                                       {!tab.isHibernated ? (
                                         <button 
                                           onClick={() => handleHibernateTab(tab.id)}
@@ -662,6 +724,49 @@ Answer the user's question: "${userText}" in a helpful, friendly, plain English 
                     );
                   }))}
               </div>
+
+              {/* Feature [5] Recent / Untracked Tabs Section */}
+              <div className="space-y-2 pt-3 border-t border-slate-100 text-left">
+                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Recent Tabs</span>
+                <div className="space-y-2">
+                  {recentTabs.length === 0 ? (
+                    <p className="text-[10px] text-slate-400 italic">No matching recent tabs found.</p>
+                  ) : (
+                    recentTabs.map((tab) => (
+                      <div key={tab.id} className="flex items-center justify-between bg-white border border-slate-100 p-2.5 rounded-xl shadow-sm">
+                        <div className="flex items-center space-x-2 overflow-hidden flex-1">
+                          {tab.favIconUrl ? (
+                            <img src={tab.favIconUrl} className="w-3.5 h-3.5 rounded-sm flex-shrink-0" alt="" />
+                          ) : (
+                            <div className="w-3.5 h-3.5 bg-slate-200 rounded flex-shrink-0 flex items-center justify-center text-[8px]">🌐</div>
+                          )}
+                          <div className="overflow-hidden flex-1 text-left">
+                            <span className="text-[11px] font-semibold text-slate-700 block truncate">{tab.title}</span>
+                            <span className="text-[8px] text-slate-400 block truncate">{tab.domain}</span>
+                          </div>
+                        </div>
+                        
+                        <div className="flex items-center space-x-1.5 ml-2">
+                          {/* Workspace Quick Assignment Selector */}
+                          <select
+                            value={tab.workspaceId || ""}
+                            onChange={async (e) => {
+                              await handleMoveTabToWorkspace(tab.id, e.target.value);
+                            }}
+                            className="bg-slate-50 border border-slate-200 text-[9px] rounded px-1.5 py-0.5 focus:outline-none focus:border-brand-500 text-slate-700 max-w-[95px]"
+                          >
+                            <option value="">Move to...</option>
+                            {state.workspaces.map(w => (
+                              <option key={w.id} value={w.id}>{w.name}</option>
+                            ))}
+                            {tab.workspaceId && <option value="">Unlink</option>}
+                          </select>
+                        </div>
+                      </div>
+                    ))
+                  )}
+                </div>
+              </div>
             </div>
           )}
 
@@ -690,7 +795,7 @@ Answer the user's question: "${userText}" in a helpful, friendly, plain English 
               </div>
 
               {/* Suggested Actions List */}
-              <div className="space-y-2">
+              <div className="space-y-2 text-left">
                 <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Suggested actions</span>
                 
                 <div 
@@ -764,7 +869,7 @@ ${JSON.stringify(state.timeline.slice(0, 10))}`;
 
               {/* Conversation Bubble */}
               <div className="space-y-2 pt-2 border-t border-slate-100 flex-1 flex flex-col justify-end max-h-[300px] overflow-y-auto">
-                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Conversation</span>
+                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block text-left">Conversation</span>
 
                 <div className="space-y-3">
                   {chatMessages.map((msg, idx) => (
@@ -828,7 +933,7 @@ ${JSON.stringify(state.timeline.slice(0, 10))}`;
               
               {/* Appearance Section */}
               <div className="bg-white border border-slate-100 rounded-xl p-3.5 space-y-3.5 shadow-sm">
-                <h3 className="text-xs font-bold text-slate-900 flex items-center gap-2">
+                <h3 className="text-xs font-bold text-slate-900 flex items-center gap-2 text-left">
                   <span className="w-5 h-5 rounded bg-blue-50 text-blue-500 flex items-center justify-center text-xs">🎨</span>
                   <span>Appearance</span>
                 </h3>
@@ -841,7 +946,7 @@ ${JSON.stringify(state.timeline.slice(0, 10))}`;
                   </select>
                 </div>
                 <div className="flex justify-between items-center text-xs">
-                  <div className="space-y-0.5">
+                  <div className="space-y-0.5 text-left">
                     <span className="text-slate-600 font-medium block">Compact View</span>
                     <span className="text-[9px] text-slate-400 block">Tighter spacing and smaller cards</span>
                   </div>
@@ -851,7 +956,7 @@ ${JSON.stringify(state.timeline.slice(0, 10))}`;
 
               {/* AI Section */}
               <div className="bg-white border border-slate-100 rounded-xl p-3.5 space-y-3.5 shadow-sm">
-                <h3 className="text-xs font-bold text-slate-900 flex items-center gap-2">
+                <h3 className="text-xs font-bold text-slate-900 flex items-center gap-2 text-left">
                   <span className="w-5 h-5 rounded bg-violet-50 text-violet-500 flex items-center justify-center text-xs">ℹ️</span>
                   <span>AI</span>
                 </h3>
@@ -867,7 +972,7 @@ ${JSON.stringify(state.timeline.slice(0, 10))}`;
                     <option value="ollama">Ollama (Local)</option>
                   </select>
                 </div>
-                <div className="space-y-1 text-xs">
+                <div className="space-y-1 text-xs text-left">
                   <span className="text-slate-600 font-medium block">API KEY</span>
                   <div className="relative">
                     <input 
@@ -895,7 +1000,7 @@ ${JSON.stringify(state.timeline.slice(0, 10))}`;
                   </div>
                 </div>
                 <div className="flex justify-between items-center text-xs border-t border-slate-100 pt-3">
-                  <div className="space-y-0.5">
+                  <div className="space-y-0.5 text-left">
                     <span className="text-slate-600 font-medium block">Auto Project Detection</span>
                     <span className="text-[9px] text-slate-400 block">AI groups open tabs into projects</span>
                   </div>
@@ -913,7 +1018,7 @@ ${JSON.stringify(state.timeline.slice(0, 10))}`;
 
               {/* Performance Section */}
               <div className="bg-white border border-slate-100 rounded-xl p-3.5 space-y-3.5 shadow-sm">
-                <h3 className="text-xs font-bold text-slate-900 flex items-center gap-2">
+                <h3 className="text-xs font-bold text-slate-900 flex items-center gap-2 text-left">
                   <span className="w-5 h-5 rounded bg-yellow-50 text-yellow-500 flex items-center justify-center text-xs">🌙</span>
                   <span>Performance</span>
                 </h3>
@@ -933,7 +1038,7 @@ ${JSON.stringify(state.timeline.slice(0, 10))}`;
                   </select>
                 </div>
                 <div className="flex justify-between items-center text-xs">
-                  <div className="space-y-0.5">
+                  <div className="space-y-0.5 text-left">
                     <span className="text-slate-600 font-medium block">Memory Optimization</span>
                     <span className="text-[9px] text-slate-400 block">Compress inactive tabs automatically</span>
                   </div>
@@ -950,7 +1055,7 @@ ${JSON.stringify(state.timeline.slice(0, 10))}`;
                 
                 {/* Dynamic Saved Banner */}
                 <div className="bg-emerald-500/5 border border-emerald-500/10 rounded-xl p-3 flex justify-between items-center mt-2">
-                  <div className="space-y-0.5">
+                  <div className="space-y-0.5 text-left">
                     <span className="text-[8px] font-bold text-emerald-600 uppercase block tracking-wider">Saved Today</span>
                     <span className="text-lg font-bold text-emerald-600 block leading-none">{estimatedRAMSavedGB} GB</span>
                   </div>
@@ -963,19 +1068,19 @@ ${JSON.stringify(state.timeline.slice(0, 10))}`;
 
               {/* Notifications Section */}
               <div className="bg-white border border-slate-100 rounded-xl p-3.5 space-y-3.5 shadow-sm">
-                <h3 className="text-xs font-bold text-slate-900 flex items-center gap-2">
+                <h3 className="text-xs font-bold text-slate-900 flex items-center gap-2 text-left">
                   <span className="w-5 h-5 rounded bg-pink-50 text-pink-500 flex items-center justify-center text-xs">🔔</span>
                   <span>Notifications</span>
                 </h3>
                 <div className="flex justify-between items-center text-xs">
-                  <div className="space-y-0.5">
+                  <div className="space-y-0.5 text-left">
                     <span className="text-slate-600 font-medium block">AI Insights</span>
                     <span className="text-[9px] text-slate-400 block">Smart observations about your work</span>
                   </div>
                   <input type="checkbox" defaultChecked className="w-8 h-4 bg-slate-200 rounded-full appearance-none checked:bg-brand-600 cursor-pointer relative after:content-[''] after:absolute after:w-3.5 after:h-3.5 after:bg-white after:rounded-full after:top-0.25 after:left-0.5 checked:after:translate-x-3.5 after:transition-transform duration-200" />
                 </div>
                 <div className="flex justify-between items-center text-xs">
-                  <div className="space-y-0.5">
+                  <div className="space-y-0.5 text-left">
                     <span className="text-slate-600 font-medium block">Workspace Ready</span>
                     <span className="text-[9px] text-slate-400 block">Alert when tabs are grouped</span>
                   </div>
@@ -985,12 +1090,12 @@ ${JSON.stringify(state.timeline.slice(0, 10))}`;
 
               {/* Privacy Section */}
               <div className="bg-white border border-slate-100 rounded-xl p-3.5 space-y-3.5 shadow-sm">
-                <h3 className="text-xs font-bold text-slate-900 flex items-center gap-2">
+                <h3 className="text-xs font-bold text-slate-900 flex items-center gap-2 text-left">
                   <span className="w-5 h-5 rounded bg-teal-50 text-teal-500 flex items-center justify-center text-xs">🛡️</span>
                   <span>Privacy</span>
                 </h3>
                 <div className="flex justify-between items-center text-xs">
-                  <div className="space-y-0.5">
+                  <div className="space-y-0.5 text-left">
                     <span className="text-slate-600 font-medium block">Store Data Locally</span>
                     <span className="text-[9px] text-slate-400 block">Everything stays on your device</span>
                   </div>
@@ -1012,7 +1117,7 @@ ${JSON.stringify(state.timeline.slice(0, 10))}`;
               </div>
 
               {/* About Section */}
-              <div className="bg-white border border-slate-100 rounded-xl p-3.5 space-y-3 shadow-sm text-xs text-slate-600">
+              <div className="bg-white border border-slate-100 rounded-xl p-3.5 space-y-3 shadow-sm text-xs text-slate-600 text-left">
                 <h3 className="text-xs font-bold text-slate-900 flex items-center gap-2 mb-2">
                   <span className="w-5 h-5 rounded bg-slate-50 text-slate-500 flex items-center justify-center text-xs">ℹ️</span>
                   <span>About Tab Loom</span>
@@ -1047,7 +1152,7 @@ ${JSON.stringify(state.timeline.slice(0, 10))}`;
           {/* TIMELINE VIEW */}
           {activeView === 'timeline' && (
             <div className="space-y-4">
-              <h2 className="text-sm font-bold text-slate-800 flex items-center space-x-1.5">
+              <h2 className="text-sm font-bold text-slate-800 flex items-center space-x-1.5 text-left">
                 <Clock className="w-4 h-4 text-brand-600" />
                 <span>Browsing Timeline</span>
               </h2>
@@ -1057,7 +1162,7 @@ ${JSON.stringify(state.timeline.slice(0, 10))}`;
                   <p className="text-xs text-slate-400 text-center py-8">No browsing events recorded yet.</p>
                 ) : (
                   state.timeline.map((event, idx) => (
-                    <div key={idx} className="bg-white border border-slate-100 p-3 rounded-xl flex space-x-3 items-start shadow-sm animate-fade-in">
+                    <div key={idx} className="bg-white border border-slate-100 p-3 rounded-xl flex space-x-3 items-start shadow-sm animate-fade-in text-left">
                       <div className={`w-2 h-2 rounded-full mt-1.5 ${
                         event.type === 'visit' ? 'bg-blue-500' :
                         event.type === 'hibernate' ? 'bg-violet-500' : 'bg-emerald-500'
@@ -1079,7 +1184,7 @@ ${JSON.stringify(state.timeline.slice(0, 10))}`;
 
           {/* HOME VIEW */}
           {activeView === 'home' && (
-            <div className="space-y-4 animate-fade-in">
+            <div className="space-y-4 animate-fade-in text-left">
               
               {/* Welcome banner */}
               <div className="bg-brand-600 text-white rounded-2xl p-5 space-y-2.5 shadow-md shadow-brand-500/10 text-left">
@@ -1098,16 +1203,26 @@ ${JSON.stringify(state.timeline.slice(0, 10))}`;
                 </div>
               </div>
 
-              {/* Status summary widget */}
-              <div className="grid grid-cols-2 gap-3">
-                <div className="bg-white border border-slate-100 p-3.5 rounded-xl shadow-sm text-left">
-                  <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block">Est. RAM Saved</span>
-                  <span className="text-lg font-bold text-emerald-600 block mt-1 leading-none">{estimatedRAMSavedGB} GB</span>
+              {/* Feature [10] Real-time Analytics counters summary widget */}
+              <div className="grid grid-cols-3 gap-2">
+                <div className="bg-white border border-slate-100 p-3 rounded-xl shadow-sm text-left">
+                  <span className="text-[8px] font-bold text-slate-400 uppercase tracking-wider block">Tabs Managed</span>
+                  <span className="text-sm font-bold text-slate-800 block mt-0.5">{Object.keys(state.tabs).length}</span>
                 </div>
-                <div className="bg-white border border-slate-100 p-3.5 rounded-xl shadow-sm text-left">
-                  <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block">Session Health</span>
-                  <span className="text-lg font-bold text-brand-600 block mt-1 leading-none">Optimal</span>
+                <div className="bg-white border border-slate-100 p-3 rounded-xl shadow-sm text-left">
+                  <span className="text-[8px] font-bold text-slate-400 uppercase tracking-wider block">Workspaces</span>
+                  <span className="text-sm font-bold text-slate-800 block mt-0.5">{state.workspaces.length}</span>
                 </div>
+                <div className="bg-white border border-slate-100 p-3 rounded-xl shadow-sm text-left">
+                  <span className="text-[8px] font-bold text-slate-400 uppercase tracking-wider block">RAM Saved</span>
+                  <span className="text-sm font-bold text-emerald-600 block mt-0.5">{estimatedRAMSavedGB} GB</span>
+                </div>
+              </div>
+
+              {/* Session Health and other items */}
+              <div className="bg-white border border-slate-100 p-3.5 rounded-xl shadow-sm text-left">
+                <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block">Session Health</span>
+                <span className="text-lg font-bold text-brand-600 block mt-1 leading-none">Optimal</span>
               </div>
 
               {/* Tips list */}
@@ -1121,6 +1236,10 @@ ${JSON.stringify(state.timeline.slice(0, 10))}`;
                   <li className="flex items-start gap-2">
                     <span className="text-brand-500 mt-0.5">•</span>
                     <span>Lock automatic AI workspaces to freeze them. Locked workspaces will not be edited or grouped by the AI module.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-brand-500 mt-0.5">•</span>
+                    <span>Move tabs to different workspaces instantly using the selection dropdown next to each tab.</span>
                   </li>
                 </ul>
               </div>
