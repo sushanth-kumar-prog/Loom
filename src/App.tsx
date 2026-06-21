@@ -431,10 +431,6 @@ Answer the user's question: "${userText}" in a helpful, friendly, plain English 
           </div>
 
           <div className="flex items-center space-x-2">
-            <span className="flex items-center space-x-1 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20 text-[9px] text-emerald-600 font-medium">
-              <span className="w-1 h-1 rounded-full bg-emerald-500"></span>
-              <span>AI Active</span>
-            </span>
             <div className="w-7 h-7 rounded-full bg-orange-500 flex items-center justify-center text-xs font-bold text-white shadow-sm">
               U
             </div>
@@ -788,10 +784,6 @@ Answer the user's question: "${userText}" in a helpful, friendly, plain English 
                     </div>
                   </div>
                 </div>
-                <span className="text-[9px] bg-brand-50 text-brand-600 font-bold px-2 py-0.5 rounded-full flex items-center gap-1 border border-brand-100">
-                  <Sparkles className="w-2.5 h-2.5" />
-                  <span>AI Active</span>
-                </span>
               </div>
 
               {/* Suggested Actions List */}
@@ -1141,10 +1133,7 @@ ${JSON.stringify(state.timeline.slice(0, 10))}`;
                 </a>
               </div>
 
-              {/* Footer */}
-              <p className="text-center text-[10px] text-slate-400 font-medium py-2">
-                Made with ❤️ for productivity • Tab Loom v2.4.1
-              </p>
+
 
             </div>
           )}
