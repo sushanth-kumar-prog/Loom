@@ -107,10 +107,10 @@
 
   <!-- badge pill -->
   <g>
-    <rect x="500" y="18" width="200" height="28" rx="14" fill="#0d1726" stroke="#2dd4bf" stroke-width="1.2">
+    <rect x="370" y="18" width="460" height="28" rx="14" fill="#0d1726" stroke="#2dd4bf" stroke-width="1.2">
       <animate attributeName="stroke-opacity" values="0.4;1;0.4" dur="2.4s" repeatCount="indefinite"/>
     </rect>
-    <text x="600" y="37" text-anchor="middle" font-family="JetBrains Mono, Consolas, monospace" font-size="13" letter-spacing="2" fill="#5eead4">ELEVATE 2026 ENTRY</text>
+    <text x="600" y="37" text-anchor="middle" font-family="JetBrains Mono, Consolas, monospace" font-size="11" letter-spacing="1" fill="#5eead4">ELEVATE 2026 · IDEAKODE · TEAM SUSHRAMESH5</text>
   </g>
 
   <!-- glow duplicate of title (blurred) -->
