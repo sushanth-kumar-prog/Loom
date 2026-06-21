@@ -114,24 +114,24 @@
   </g>
 
   <!-- glow duplicate of title (blurred) -->
-  <text x="600" y="172" text-anchor="middle" font-family="Verdana, Arial, sans-serif" font-weight="900" font-size="92" fill="#2dd4bf" filter="url(#bigBlur)" opacity="0.55">ContextTab</text>
+  <text x="600" y="172" text-anchor="middle" font-family="Verdana, Arial, sans-serif" font-weight="900" font-size="92" fill="#2dd4bf" filter="url(#bigBlur)" opacity="0.55">TabLoom</text>
 
   <!-- crisp title -->
-  <text x="600" y="172" text-anchor="middle" font-family="Verdana, Arial, sans-serif" font-weight="900" font-size="92" fill="url(#titleGrad)">ContextTab</text>
+  <text x="600" y="172" text-anchor="middle" font-family="Verdana, Arial, sans-serif" font-weight="900" font-size="92" fill="url(#titleGrad)">TabLoom</text>
 
   <!-- subtitle with typewriter reveal -->
   <g>
     <clipPath id="revealClip">
       <rect x="0" y="195" width="0" height="50">
-        <animate attributeName="width" values="0;640;640;0" keyTimes="0;0.45;0.9;1" dur="7s" repeatCount="indefinite"/>
+        <animate attributeName="width" values="0;630;630;0" keyTimes="0;0.45;0.9;1" dur="7s" repeatCount="indefinite"/>
         <animate attributeName="x" values="280;280;280;280" dur="7s" repeatCount="indefinite"/>
       </rect>
     </clipPath>
-    <text x="600" y="228" text-anchor="middle" font-family="Consolas, 'JetBrains Mono', monospace" font-size="26" fill="#cdd6e4" letter-spacing="1" clip-path="url(#revealClip)">Your Browser's Second Brain 🧠</text>
+    <text x="600" y="228" text-anchor="middle" font-family="Consolas, 'JetBrains Mono', monospace" font-size="26" fill="#cdd6e4" letter-spacing="1" clip-path="url(#revealClip)">Your Browser's Second Brain</text>
   </g>
 
   <!-- blinking cursor -->
-  <rect x="918" y="206" width="3" height="26" fill="#5eead4">
+  <rect x="908" y="206" width="3" height="26" fill="#5eead4">
     <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.5;0.5;1" dur="0.9s" repeatCount="indefinite"/>
   </rect>
 
