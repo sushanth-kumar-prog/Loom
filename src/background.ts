@@ -104,10 +104,14 @@ async function saveState(state: ExtensionState): Promise<void> {
 async function initializeOpenTabs() {
   const state = await getState();
   const tabs = await chrome.tabs.query({});
-  let updated = false;
   const now = Date.now();
+  const currentTabIds = new Set<number>();
+  
+  let updated = false;
+
   for (const tab of tabs) {
-    if (tab.id && tab.url && !tab.url.startsWith('chrome://')) {
+    if (tab.id && tab.url && !tab.url.startsWith('chrome://') && !tab.url.startsWith('chrome-extension://')) {
+      currentTabIds.add(tab.id);
       if (!state.tabs[tab.id]) {
         state.tabs[tab.id] = {
           id: tab.id,
@@ -124,6 +128,16 @@ async function initializeOpenTabs() {
       }
     }
   }
+
+  // Remove stale tracked tabs that are no longer open in Chrome
+  for (const key of Object.keys(state.tabs)) {
+    const tabId = Number(key);
+    if (!currentTabIds.has(tabId)) {
+      delete state.tabs[tabId];
+      updated = true;
+    }
+  }
+
   if (updated) {
     await saveState(state);
   }
@@ -362,8 +376,13 @@ Output ONLY valid JSON. Output format example:
       }
 
       for (const groupedTab of groupedTabs) {
-        // Find matching active tab by URL
-        const tab = Object.values(currentState.tabs).find(t => t.url === groupedTab.url && !t.workspaceId);
+        // Find matching active tab by URL (using fuzzy/start comparison to prevent dynamic URL mismatch)
+        const tab = Object.values(currentState.tabs).find(t => {
+          if (t.workspaceId) return false;
+          const u1 = t.url.toLowerCase().replace(/\/$/, '');
+          const u2 = groupedTab.url.toLowerCase().replace(/\/$/, '');
+          return u1 === u2 || u1.includes(u2) || u2.includes(u1);
+        });
         if (tab) {
           tab.workspaceId = workspace.id;
           tab.summary = groupedTab.one_sentence_summary;
