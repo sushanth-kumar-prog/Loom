@@ -102,9 +102,14 @@ export default function App() {
     if (typeof chrome !== 'undefined' && chrome.storage) {
       chrome.storage.local.get('state', (result) => {
         if (result.state) {
+          const savedState = result.state || {};
           setState({
             ...DEFAULT_STATE,
-            ...result.state
+            ...savedState,
+            settings: {
+              ...DEFAULT_STATE.settings,
+              ...(savedState.settings || {})
+            }
           });
         }
       });
@@ -291,8 +296,8 @@ export default function App() {
       const openTabsList = Object.values(state.tabs).map(t => `- "${t.title}" on ${t.domain} (Summary: ${t.summary || 'None'})`).join('\n');
       const workspacesList = state.workspaces.map(w => `- Project "${w.name}" (${w.type})`).join('\n');
 
-      const systemContextPrompt = `You are Jordan's browser "Second Brain" assistant.
-Here is the context of what Jordan has currently open and saved in ContextTab:
+      const systemContextPrompt = `You are the user's browser "Second Brain" assistant.
+Here is the context of what the user has currently open and saved in ContextTab:
 
 WORKSPACES/PROJECTS:
 ${workspacesList || "None created yet."}
@@ -411,7 +416,7 @@ Answer the user's question: "${userText}" in a helpful, friendly, plain English 
               <span>AI Active</span>
             </span>
             <div className="w-7 h-7 rounded-full bg-orange-500 flex items-center justify-center text-xs font-bold text-white shadow-sm">
-              J
+              U
             </div>
           </div>
         </div>
@@ -776,7 +781,7 @@ ${JSON.stringify(state.timeline.slice(0, 10))}`;
                       <div className={`w-6 h-6 rounded-full flex items-center justify-center mt-1 flex-shrink-0 text-xs font-bold ${
                         msg.role === 'user' ? 'bg-orange-500 text-white' : 'bg-brand-50 border border-brand-100 text-brand-600'
                       }`}>
-                        {msg.role === 'user' ? 'J' : <Brain className="w-3.5 h-3.5" />}
+                        {msg.role === 'user' ? 'U' : <Brain className="w-3.5 h-3.5" />}
                       </div>
                       <div className={`flex-1 p-3 rounded-2xl shadow-sm border border-slate-100 text-left ${
                         msg.role === 'user' ? 'bg-brand-600 text-white border-transparent' : 'bg-white text-slate-600'

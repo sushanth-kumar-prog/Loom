@@ -84,7 +84,15 @@ chrome.runtime.onStartup.addListener(async () => {
 // Helper: Get state from storage
 async function getState(): Promise<ExtensionState> {
   const result = await chrome.storage.local.get('state');
-  return { ...DEFAULT_STATE, ...(result.state || {}) };
+  const savedState = result.state || {};
+  return {
+    ...DEFAULT_STATE,
+    ...savedState,
+    settings: {
+      ...DEFAULT_STATE.settings,
+      ...(savedState.settings || {})
+    }
+  };
 }
 
 // Helper: Save state to storage
@@ -213,7 +221,7 @@ function handleTabActivity(tabId: number, changeInfo?: chrome.tabs.TabChangeInfo
         // Automatically trigger grouping if threshold is met and autoProjectDetection is enabled
         if (state.settings.autoProjectDetection) {
           const ungroupedTabs = Object.values(state.tabs).filter(t => !t.workspaceId);
-          if (ungroupedTabs.length >= 3) {
+          if (ungroupedTabs.length >= 2) {
             // Run asynchronously
             setTimeout(() => {
               triggerWorkflowGrouping();
