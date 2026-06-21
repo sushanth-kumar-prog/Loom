@@ -1,0 +1,110 @@
+<svg viewBox="0 0 1040 480" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#070a12"/>
+      <stop offset="100%" stop-color="#0d1320"/>
+    </linearGradient>
+    <pattern id="grid2" width="36" height="36" patternUnits="userSpaceOnUse">
+      <path d="M36 0H0V36" fill="none" stroke="#16213a" stroke-width="1"/>
+    </pattern>
+    <filter id="boxGlow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="5" result="b"/>
+      <feMerge>
+        <feMergeNode in="b"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <linearGradient id="boxStroke" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00F5D4"/>
+      <stop offset="100%" stop-color="#9B5DE5"/>
+    </linearGradient>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#5eead4"/>
+    </marker>
+  </defs>
+
+  <rect width="1040" height="480" fill="url(#bg2)"/>
+  <rect width="1040" height="480" fill="url(#grid2)" opacity="0.5"/>
+
+  <text x="520" y="36" text-anchor="middle" font-family="JetBrains Mono, Consolas, monospace" font-size="15" fill="#5eead4" letter-spacing="3">LIVE DATA PIPELINE</text>
+
+  <!-- connector paths (drawn first, boxes drawn on top) -->
+  <g fill="none" stroke="#2dd4bf" stroke-width="2" opacity="0.7">
+    <path id="pAB" d="M260,90 H400" marker-end="url(#arrow)" stroke-dasharray="6 6">
+      <animate attributeName="stroke-dashoffset" values="0;-24" dur="1.4s" repeatCount="indefinite"/>
+    </path>
+    <path id="pBC" d="M680,90 H800" marker-end="url(#arrow)" stroke-dasharray="6 6">
+      <animate attributeName="stroke-dashoffset" values="0;-24" dur="1.3s" repeatCount="indefinite"/>
+    </path>
+    <path id="pCD" d="M900,130 V260" marker-end="url(#arrow)" stroke-dasharray="6 6">
+      <animate attributeName="stroke-dashoffset" values="0;-24" dur="1.2s" repeatCount="indefinite"/>
+    </path>
+    <path id="pAE" d="M140,130 V260" marker-end="url(#arrow)" stroke-dasharray="6 6" stroke="#9B5DE5">
+      <animate attributeName="stroke-dashoffset" values="0;-24" dur="1.6s" repeatCount="indefinite"/>
+    </path>
+    <path id="pEF" d="M260,300 H400" marker-end="url(#arrow)" stroke-dasharray="6 6" stroke="#9B5DE5">
+      <animate attributeName="stroke-dashoffset" values="0;-24" dur="1.5s" repeatCount="indefinite"/>
+    </path>
+    <path id="pFD" d="M680,300 H800" marker-end="url(#arrow)" stroke-dasharray="6 6" stroke="#9B5DE5">
+      <animate attributeName="stroke-dashoffset" values="0;-24" dur="1.4s" repeatCount="indefinite"/>
+    </path>
+    <path id="pLoop" d="M900,340 C 940,420 200,440 140,340" marker-end="url(#arrow)" stroke-dasharray="3 7" stroke="#F15BB5" opacity="0.5">
+      <animate attributeName="stroke-dashoffset" values="0;-30" dur="2.2s" repeatCount="indefinite"/>
+    </path>
+  </g>
+
+  <!-- traveling packets -->
+  <g>
+    <circle r="4" fill="#00F5D4"><animateMotion dur="1.4s" repeatCount="indefinite"><mpath href="#pAB"/></animateMotion></circle>
+    <circle r="4" fill="#00F5D4"><animateMotion dur="1.3s" repeatCount="indefinite"><mpath href="#pBC"/></animateMotion></circle>
+    <circle r="4" fill="#00F5D4"><animateMotion dur="1.2s" repeatCount="indefinite"><mpath href="#pCD"/></animateMotion></circle>
+    <circle r="4" fill="#9B5DE5"><animateMotion dur="1.6s" repeatCount="indefinite"><mpath href="#pAE"/></animateMotion></circle>
+    <circle r="4" fill="#9B5DE5"><animateMotion dur="1.5s" repeatCount="indefinite"><mpath href="#pEF"/></animateMotion></circle>
+    <circle r="4" fill="#9B5DE5"><animateMotion dur="1.4s" repeatCount="indefinite"><mpath href="#pFD"/></animateMotion></circle>
+    <circle r="3" fill="#F15BB5" opacity="0.8"><animateMotion dur="2.2s" repeatCount="indefinite"><mpath href="#pLoop"/></animateMotion></circle>
+  </g>
+
+  <!-- Box: Tab Monitor -->
+  <g filter="url(#boxGlow)">
+    <rect x="40" y="60" width="220" height="70" rx="12" fill="#0d1726" stroke="url(#boxStroke)" stroke-width="1.6"/>
+  </g>
+  <text x="150" y="88" text-anchor="middle" font-family="Verdana" font-size="15" font-weight="bold" fill="#e6edf7">🌐 Tab Activity Monitor</text>
+  <text x="150" y="108" text-anchor="middle" font-family="Consolas, monospace" font-size="11" fill="#7c8aa3">chrome.tabs · service worker</text>
+
+  <!-- Box: AI Engine -->
+  <g filter="url(#boxGlow)">
+    <rect x="400" y="60" width="280" height="70" rx="12" fill="#0d1726" stroke="url(#boxStroke)" stroke-width="1.6"/>
+  </g>
+  <text x="540" y="88" text-anchor="middle" font-family="Verdana" font-size="15" font-weight="bold" fill="#e6edf7">🤖 Ollama AI Engine</text>
+  <text x="540" y="108" text-anchor="middle" font-family="Consolas, monospace" font-size="11" fill="#7c8aa3">gemma4 · localhost:11434</text>
+
+  <!-- Box: Workspace Organizer -->
+  <g filter="url(#boxGlow)">
+    <rect x="800" y="60" width="200" height="70" rx="12" fill="#0d1726" stroke="url(#boxStroke)" stroke-width="1.6"/>
+  </g>
+  <text x="900" y="88" text-anchor="middle" font-family="Verdana" font-size="14" font-weight="bold" fill="#e6edf7">📊 Workspace</text>
+  <text x="900" y="106" text-anchor="middle" font-family="Verdana" font-size="14" font-weight="bold" fill="#e6edf7">Organizer</text>
+
+  <!-- Box: Hibernation Worker -->
+  <g filter="url(#boxGlow)">
+    <rect x="40" y="260" width="220" height="70" rx="12" fill="#0d1726" stroke="#9B5DE5" stroke-width="1.6"/>
+  </g>
+  <text x="150" y="288" text-anchor="middle" font-family="Verdana" font-size="15" font-weight="bold" fill="#e6edf7">🌙 Hibernation Worker</text>
+  <text x="150" y="308" text-anchor="middle" font-family="Consolas, monospace" font-size="11" fill="#7c8aa3">chrome.alarms · idle timeout</text>
+
+  <!-- Box: RAM Tracker -->
+  <g filter="url(#boxGlow)">
+    <rect x="400" y="260" width="280" height="70" rx="12" fill="#0d1726" stroke="#9B5DE5" stroke-width="1.6"/>
+  </g>
+  <text x="540" y="288" text-anchor="middle" font-family="Verdana" font-size="15" font-weight="bold" fill="#e6edf7">💾 RAM Savings Tracker</text>
+  <text x="540" y="308" text-anchor="middle" font-family="Consolas, monospace" font-size="11" fill="#7c8aa3">up to 120MB reclaimed / tab</text>
+
+  <!-- Box: Side Panel UI -->
+  <g filter="url(#boxGlow)">
+    <rect x="800" y="260" width="200" height="70" rx="12" fill="#0d1726" stroke="url(#boxStroke)" stroke-width="1.6"/>
+  </g>
+  <text x="900" y="288" text-anchor="middle" font-family="Verdana" font-size="14" font-weight="bold" fill="#e6edf7">🖥️ Side Panel</text>
+  <text x="900" y="306" text-anchor="middle" font-family="Verdana" font-size="14" font-weight="bold" fill="#e6edf7">UI (React)</text>
+
+  <text x="520" y="450" text-anchor="middle" font-family="Consolas, monospace" font-size="12" fill="#5b6b85">pink loop = context restored instantly on tab wake</text>
+</svg>
