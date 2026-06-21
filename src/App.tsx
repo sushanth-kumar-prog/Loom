@@ -111,6 +111,9 @@ export default function App() {
               ...(savedState.settings || {})
             }
           });
+        } else {
+          // If no state exists, save default state to trigger storage listeners
+          chrome.storage.local.set({ state: DEFAULT_STATE });
         }
       });
 
